@@ -1,4 +1,4 @@
-Join the Skool - https://www.skool.com/iss-ai-automation-school-6342/about
+
 
 # Claude Code Agent Orchestration System v2 🚀
 
@@ -272,7 +272,7 @@ MIT - Use it, modify it, share it!
 
 ## 🙏 Credits
 
-Built by [Income Stream Surfer](https://www.youtube.com/incomestreamsurfers)
+
 
 Powered by Claude Code's agent system and Playwright MCP.
 
