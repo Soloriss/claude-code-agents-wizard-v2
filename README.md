@@ -1,14 +1,12 @@
+# Gemini 3.0 Agent Orchestration System 🚀
 
-
-# Claude Code Agent Orchestration System v2 🚀
-
-A simple yet powerful orchestration system for Claude Code that uses specialized agents to manage complex projects from start to finish, with mandatory human oversight and visual testing.
+A simple yet powerful orchestration system for Gemini 3.0 that uses specialized agents to manage complex projects from start to finish, with mandatory human oversight and visual testing.
 
 ## 🎯 What Is This?
 
-This is a **custom Claude Code orchestration system** that transforms how you build software projects. Claude Code itself acts as the orchestrator with its 200k context window, managing the big picture while delegating individual tasks to specialized subagents:
+This is a **custom Gemini orchestration system** that transforms how you build software projects. Gemini itself acts as the orchestrator with its massive context window (2M+ tokens), managing the big picture while delegating individual tasks to specialized subagents:
 
-- **🧠 Claude (You)** - The orchestrator with 200k context managing todos and the big picture
+- **🧠 Gemini (You)** - The orchestrator with huge context managing todos and the big picture
 - **✍️ Coder Subagent** - Implements one todo at a time in its own clean context
 - **👁️ Tester Subagent** - Verifies implementations using Playwright in its own context
 - **🆘 Stuck Subagent** - Human escalation point when ANY problem occurs
@@ -18,14 +16,14 @@ This is a **custom Claude Code orchestration system** that transforms how you bu
 - **No Fallbacks**: When ANY agent hits a problem, you get asked - no assumptions, no workarounds
 - **Visual Testing**: Playwright MCP integration for screenshot-based verification
 - **Todo Tracking**: Always see exactly where your project stands
-- **Simple Flow**: Claude creates todos → delegates to coder → tester verifies → repeat
+- **Simple Flow**: Gemini creates todos → delegates to coder → tester verifies → repeat
 - **Human Control**: The stuck agent ensures you're always in the loop
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-1. **Claude Code CLI** installed ([get it here](https://docs.claude.com/en/docs/claude-code))
+1. **Gemini 3.0 Access** (or equivalent high-context model interface)
 2. **Node.js** (for Playwright MCP)
 
 ### Installation
@@ -35,23 +33,23 @@ This is a **custom Claude Code orchestration system** that transforms how you bu
 git clone https://github.com/IncomeStreamSurfer/claude-code-agents-wizard-v2.git
 cd claude-code-agents-wizard-v2
 
-# Start Claude Code in this directory
-claude
+# Configure your agent runner to point to the .gemini directory
+# (Implementation depends on your specific Gemini agent runner tool)
 ```
 
-That's it! The agents are automatically loaded from the `.claude/` directory.
+The agents are defined in the `.gemini/` directory.
 
 ## 📖 How to Use
 
 ### Starting a Project
 
-When you want to build something, just tell Claude your requirements:
+When you want to build something, initialize the system with the prompt in `.gemini/GEMINI.md`:
 
 ```
 You: "Build a todo app with React and TypeScript"
 ```
 
-Claude will automatically:
+Gemini will automatically:
 1. Create a detailed todo list using TodoWrite
 2. Delegate the first todo to the **coder** subagent
 3. The coder implements in its own clean context window
@@ -65,9 +63,9 @@ Claude will automatically:
 ```
 USER: "Build X"
     ↓
-CLAUDE: Creates detailed todos with TodoWrite
+GEMINI: Creates detailed todos with TodoWrite
     ↓
-CLAUDE: Invokes coder subagent for todo #1
+GEMINI: Invokes coder subagent for todo #1
     ↓
 CODER (own context): Implements feature
     ↓
@@ -75,7 +73,7 @@ CODER (own context): Implements feature
     ↓
 CODER: Reports completion
     ↓
-CLAUDE: Invokes tester subagent
+GEMINI: Invokes tester subagent
     ↓
 TESTER (own context): Playwright screenshots & verification
     ↓
@@ -83,15 +81,15 @@ TESTER (own context): Playwright screenshots & verification
     ↓
 TESTER: Reports success
     ↓
-CLAUDE: Marks todo complete, moves to next
+GEMINI: Marks todo complete, moves to next
     ↓
 Repeat until all todos done ✅
 ```
 
 ## 🛠️ How It Works
 
-### Claude (The Orchestrator)
-**Your 200k Context Window**
+### Gemini (The Orchestrator)
+**Your 2M+ Context Window**
 
 - Creates and maintains comprehensive todo lists
 - Sees the complete project from A-Z
@@ -99,7 +97,7 @@ Repeat until all todos done ✅
 - Tracks overall progress across all tasks
 - Maintains project state and context
 
-**How it works**: Claude IS the orchestrator - it uses its 200k context to manage everything
+**How it works**: Gemini IS the orchestrator - it uses its huge context to manage everything
 
 ### Coder Subagent
 **Fresh Context Per Task**
@@ -108,9 +106,9 @@ Repeat until all todos done ✅
 - Works in its own clean context window
 - Writes clean, functional code
 - **Never uses fallbacks** - invokes stuck agent immediately
-- Reports completion back to Claude
+- Reports completion back to Gemini
 
-**When it's used**: Claude delegates each coding todo to this subagent
+**When it's used**: Gemini delegates each coding todo to this subagent
 
 ### Tester Subagent
 **Fresh Context Per Verification**
@@ -121,9 +119,9 @@ Repeat until all todos done ✅
 - Takes screenshots to verify layouts
 - Tests interactions (clicks, forms, navigation)
 - **Never marks failing tests as passing**
-- Reports pass/fail back to Claude
+- Reports pass/fail back to Gemini
 
-**When it's used**: Claude delegates testing after every implementation
+**When it's used**: Gemini delegates testing after every implementation
 
 ### Stuck Subagent
 **Fresh Context Per Problem**
@@ -147,60 +145,12 @@ Traditional AI: Hits error → tries workaround → might fail silently
 
 Every agent is **hardwired** to invoke the stuck agent rather than use fallbacks. You stay in control.
 
-## 💡 Example Session
-
-```
-You: "Build a landing page with a contact form"
-
-Claude creates todos:
-  [ ] Set up HTML structure
-  [ ] Create hero section
-  [ ] Add contact form with validation
-  [ ] Style with CSS
-  [ ] Test form submission
-
-Claude invokes coder(todo #1: "Set up HTML structure")
-
-Coder (own context): Creates index.html
-Coder: Reports completion to Claude
-
-Claude invokes tester("Verify HTML structure loads")
-
-Tester (own context): Uses Playwright to navigate
-Tester: Takes screenshot
-Tester: Verifies HTML structure visible
-Tester: Reports success to Claude
-
-Claude: Marks todo #1 complete ✓
-
-Claude invokes coder(todo #2: "Create hero section")
-
-Coder (own context): Implements hero section
-Coder: ERROR - image file not found
-Coder: Invokes stuck subagent
-
-Stuck (own context): Asks YOU:
-  "Hero image 'hero.jpg' not found. How to proceed?"
-  Options:
-  - Use placeholder image
-  - Download from Unsplash
-  - Skip image for now
-
-You choose: "Download from Unsplash"
-
-Stuck: Returns your decision to coder
-Coder: Proceeds with Unsplash download
-Coder: Reports completion to Claude
-
-... and so on until all todos done
-```
-
 ## 📁 Repository Structure
 
 ```
 .
-├── .claude/
-│   ├── CLAUDE.md              # Orchestration instructions for main Claude
+├── .gemini/
+│   ├── GEMINI.md              # Orchestration instructions for main Gemini
 │   └── agents/
 │       ├── coder.md          # Coder subagent definition
 │       ├── tester.md         # Tester subagent definition
@@ -214,16 +164,12 @@ Coder: Reports completion to Claude
 
 ### Resources
 
-- **[SEO Grove](https://seogrove.ai)** - AI-powered SEO automation platform
-- **[ISS AI Automation School](https://www.skool.com/iss-ai-automation-school-6342/about)** - Join our community to learn AI automation
-- **[Income Stream Surfers YouTube](https://www.youtube.com/incomestreamsurfers)** - Tutorials, breakdowns, and AI automation content
+- **[Google DeepMind Gemini](https://deepmind.google/technologies/gemini/)** - Learn about the model
 
 ### Support
 
 Have questions or want to share what you built?
-- Join the [ISS AI Automation School community](https://www.skool.com/iss-ai-automation-school-6342/about)
-- Subscribe to [Income Stream Surfers on YouTube](https://www.youtube.com/incomestreamsurfers)
-- Check out [SEO Grove](https://seogrove.ai) for automated SEO solutions
+- Check out [Income Stream Surfers on YouTube](https://www.youtube.com/incomestreamsurfers)
 
 ## 🤝 Contributing
 
@@ -235,16 +181,16 @@ This is an open system! Feel free to:
 
 ## 📝 How It Works Under the Hood
 
-This system leverages Claude Code's [subagent system](https://docs.claude.com/en/docs/claude-code/sub-agents):
+This system leverages agentic workflows:
 
-1. **CLAUDE.md** instructs main Claude to be the orchestrator
-2. **Subagents** are defined in `.claude/agents/*.md` files
+1. **GEMINI.md** instructs main Gemini to be the orchestrator
+2. **Subagents** are defined in `.gemini/agents/*.md` files
 3. **Each subagent** gets its own fresh context window
-4. **Main Claude** maintains the 200k context with todos and project state
+4. **Main Gemini** maintains the massive context with todos and project state
 5. **Playwright MCP** is configured in `.mcp.json` for visual testing
 
 The magic happens because:
-- **Claude (200k context)** = Maintains big picture, manages todos
+- **Gemini (2M context)** = Maintains big picture, manages todos
 - **Coder (fresh context)** = Implements one task at a time
 - **Tester (fresh context)** = Verifies one implementation at a time
 - **Stuck (fresh context)** = Handles one problem at a time with human input
@@ -252,7 +198,7 @@ The magic happens because:
 
 ## 🎯 Best Practices
 
-1. **Trust Claude** - Let it create and manage the todo list
+1. **Trust Gemini** - Let it create and manage the todo list
 2. **Review screenshots** - The tester provides visual proof of every implementation
 3. **Make decisions when asked** - The stuck agent needs your guidance
 4. **Don't interrupt the flow** - Let subagents complete their work
@@ -260,8 +206,7 @@ The magic happens because:
 
 ## 🔥 Pro Tips
 
-- Use `/agents` command to see all available subagents
-- Claude maintains the todo list in its 200k context - check anytime
+- Gemini maintains the todo list in its context - check anytime
 - Screenshots from tester are saved and can be reviewed
 - Each subagent has specific tools - check their `.md` files
 - Subagents get fresh contexts - no context pollution!
@@ -272,10 +217,9 @@ MIT - Use it, modify it, share it!
 
 ## 🙏 Credits
 
-
-
-Powered by Claude Code's agent system and Playwright MCP.
+Adapted from the Claude Code Agent Orchestration System.
+Powered by Gemini 3.0 and Playwright MCP.
 
 ---
 
-**Ready to build something amazing?** Just run `claude` in this directory and tell it what you want to create! 🚀
+**Ready to build something amazing?** Feed `GEMINI.md` to your agent runner and tell it what you want to create! 🚀

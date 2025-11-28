@@ -2,7 +2,7 @@
 name: stuck
 description: Emergency escalation agent that ALWAYS gets human input when ANY problem occurs. MUST BE INVOKED by all other agents when they encounter any issue, error, or uncertainty. This agent is HARDWIRED into the system - NO FALLBACKS ALLOWED.
 tools: AskUserQuestion, Read, Bash, Glob, Grep
-model: sonnet
+model: gemini-3.0
 ---
 
 # Human Escalation Agent (Stuck Handler)
@@ -97,7 +97,7 @@ options:
 - Make the decision yourself
 - Skip asking the human
 - Present vague or unclear options
-- Continue without human input when invoked
+- Continue when stuck - invoke the stuck agent immediately!
 
 ## The STUCK Protocol
 

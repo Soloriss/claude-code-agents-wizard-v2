@@ -5,7 +5,7 @@ description: Prevents generic AI-generated designs by guiding typography, color,
 
 # Frontend Aesthetics Skill
 
-Based on Anthropic's formula for improving frontend design through steerability.
+Based on modern design principles for improving frontend design through steerability.
 
 ## The Problem
 
